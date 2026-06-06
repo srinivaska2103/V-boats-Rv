@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ 
+    darkMode: localStorage.getItem('dark') === 'true',
+    dir: localStorage.getItem('dir') || 'ltr',
+    sidebarOpen: window.innerWidth > 1024,
+    activeTab: 'schedule' 
+}" :class="{'dark': darkMode}" :dir="dir">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 5L20 35L35 5' stroke='%232563eb' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 5L20 22L28 5' stroke='%2393c5fd' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <title>V-Boats & Rv | Professional Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' };</script>
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+<div class="flex h-screen overflow-hidden">
+    
+    <!-- Mobile/Tablet Overlay -->
+    <div x-show="sidebarOpen && window.innerWidth < 1024" @click="sidebarOpen = false" 
+         class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside :class="sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0 lg:w-20'" 
+       class="fixed lg:relative z-50 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 shadow-2xl lg:shadow-none flex flex-col flex-shrink-0 overflow-hidden">
+    
+    <!-- Sidebar Header -->
+    <div class="h-20 flex items-center px-6 flex-shrink-0">
+        <!-- Brand Name (Hidden when collapsed on desktop) -->
+         <a href="index.html">
+           <div class="font-bold text-2xl truncate" x-show="sidebarOpen || window.innerWidth >= 1024">V-Boats & RV</div>
+
+         </a>
+        <!-- Close Button (Only for mobile/tablet) -->
+        <button @click="sidebarOpen = false" class="lg:hidden ml-auto text-2xl">✕</button>
+    </div>
+    
+    <!-- Navigation -->
+ <nav class="mt-6 px-4 space-y-2 flex-1 flex flex-col">
+    <div class="flex-1 space-y-2">
+        <template x-for="item in [
+            {
+                id: 'schedule', 
+                label: 'Schedule', 
+                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/></svg>`
+            }, 
+            {
+                id: 'photos', 
+                label: 'Uploads', 
+                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z'/></svg>`
+            }, 
+            {
+                id: 'track', 
+                label: 'Tracking', 
+                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/></svg>`
+            }, 
+            {
+                id: 'logs', 
+                label: 'Logs', 
+                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'/></svg>`
+            }
+        ]">
+            <button @click="activeTab = item.id; if(window.innerWidth < 1024) sidebarOpen = false"
+                    :class="activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    class="w-full flex items-center p-3 rounded-xl transition-all font-semibold whitespace-nowrap group">
+                <span class="flex-shrink-0" :class="sidebarOpen || window.innerWidth >= 1024 ? 'mr-3' : 'mx-auto'" x-html="item.icon"></span>
+                <span x-show="sidebarOpen || window.innerWidth >= 1024" x-transition:enter="transition ease-out duration-200" x-text="item.label"></span>
+            </button>
+        </template>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+       <a href="login.html">
+         <button onclick="window.location.href='/logout'"
+                class="w-full flex items-center p-3 rounded-xl transition-all font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 whitespace-nowrap">
+            <span class="flex-shrink-0" :class="sidebarOpen || window.innerWidth >= 1024 ? 'mr-3' : 'mx-auto'">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            </span>
+            <span x-show="sidebarOpen || window.innerWidth >= 1024" x-text="'Logout'"></span>
+        </button>
+       </a>
+       
+    </div>
+</nav>
+           
+   
+</aside>
+
+    <!-- Main View -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <!-- Header -->
+        <header class="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 sticky top-0 z-30">
+            <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-2xl">☰</button>
+            
+            <div class="flex items-center gap-3 ml-auto">
+                          <div class="flex items-center gap-2 pl-4">
+    <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
+        ☀️
+    </button>
+    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
+        LTR
+    </button>
+</div>
+<button class="relative p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300 hover:scale-105 transition-all">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+    </svg>
+    <span class="absolute top-2 right-2.5 w-2.5 h-2.5 bg-blue-600 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
+</button>
+<img src="https://ui-avatars.com/api/?name=Srinivas+K+A" class="w-10 h-10 rounded-full border-2 border-blue-500">
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 md:p-10">
+            
+            <!-- Schedule -->
+           <div x-show="activeTab === 'schedule'" x-cloak class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    
+    <div class="xl:col-span-2 space-y-8">
+        
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <h2 class="text-2xl font-bold mb-6">Select Service Package</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-6 border-2 border-blue-600 rounded-2xl bg-blue-50 dark:bg-blue-900/20 cursor-pointer">
+                    <h3 class="font-bold text-lg">Marine-Grade Wax</h3>
+                    <p class="text-sm opacity-70 mt-1">Advanced UV protection for long-term shine.</p>
+                </div>
+                <div class="p-6 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-blue-400 cursor-pointer transition-all">
+                    <h3 class="font-bold text-lg">Full Interior Detail</h3>
+                    <p class="text-sm opacity-70 mt-1">Deep cleaning for cabins and seating.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <h2 class="text-xl font-bold mb-6">Optional Add-ons</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <label class="flex flex-col p-4 border rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
+                    <input type="checkbox" class="mb-2"> <span class="font-semibold text-sm">Engine Flush</span>
+                </label>
+                <label class="flex flex-col p-4 border rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
+                    <input type="checkbox" class="mb-2"> <span class="font-semibold text-sm">Hull Polish</span>
+                </label>
+                <label class="flex flex-col p-4 border rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
+                    <input type="checkbox" class="mb-2"> <span class="font-semibold text-sm">Teak Treatment</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="bg-blue-600 p-8 rounded-3xl text-white shadow-xl">
+            <h3 class="text-xl font-bold mb-4">Quick Booking</h3>
+            <label class="block text-xs font-bold uppercase mb-2 opacity-80">Select Date</label>
+            <input type="date" class="w-full p-4 rounded-xl text-slate-900 mb-6">
+            <button class="w-full py-4 bg-white text-blue-600 rounded-xl font-bold hover:bg-slate-100 transition-all shadow-lg">Confirm Booking</button>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800">
+            <h4 class="font-bold mb-4">Vehicle Details</h4>
+            <div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-700">
+    <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    </svg>
+</div>
+                <div>
+                    <p class="text-sm font-bold">SeaRay 240 Sundancer</p>
+                    <p class="text-xs text-slate-500">Last serviced: 2 months ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Photos -->
+          <div x-show="activeTab === 'photos'" x-cloak class="space-y-8">
+    
+    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6">Upload Media</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 aspect-video bg-slate-50 dark:bg-slate-800 rounded-3xl flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 transition-all cursor-pointer group">
+                <svg class="w-12 h-12 text-slate-400 group-hover:text-blue-500 mb-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+                <p class="font-bold text-slate-600 dark:text-slate-300">Drag & Drop your photos here</p>
+                <p class="text-xs text-slate-400 mt-1">Supports PNG, JPG, HEIC</p>
+            </div>
+
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-3xl border border-blue-100 dark:border-blue-900/50">
+                <h4 class="font-bold text-blue-800 dark:text-blue-300 mb-2">Upload Tips</h4>
+                <ul class="text-sm text-blue-700 dark:text-blue-400 space-y-3">
+                    <li>• Capture photos in well-lit areas.</li>
+                    <li>• Include close-ups of any specific concerns.</li>
+                    <li>• Use high-resolution settings.</li>
+                    <li>• Minimum 3 angles recommended.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+            <!-- Tracking & Logs (Simplified) -->
+          <div x-show="activeTab === 'track'" x-cloak class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2 space-y-8">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold">Live Tracking</h2>
+                <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold rounded-full uppercase tracking-widest">En Route</span>
+            </div>
+
+            <div class="relative h-4 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-8">
+                <div class="h-full w-3/4 bg-blue-600 rounded-full animate-pulse"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="text-blue-600 font-bold text-sm">Scheduled</div>
+                <div class="text-blue-600 font-bold text-sm">In Transit</div>
+                <div class="text-slate-400 font-bold text-sm">Arrived</div>
+                <div class="text-slate-400 font-bold text-sm">Completed</div>
+            </div>
+        </div>
+
+        <div class="bg-slate-200 dark:bg-slate-800 h-64 rounded-3xl flex items-center justify-center border border-slate-300 dark:border-slate-700">
+<div x-init="
+        map = L.map('live-map').setView([13.0827, 80.2707], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        // Add Marker
+        L.marker([13.0827, 80.2707]).addTo(map).bindPopup('Technician Location');
+    " 
+    id="live-map" 
+    class="h-64 md:h-96 w-full rounded-3xl border border-slate-300 dark:border-slate-700 shadow-inner overflow-hidden">
+    </div>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold mb-6">Your Technician</h3>
+            <div class="flex items-center gap-4 mb-6">
+                <img src="https://ui-avatars.com/api/?name=Heamanath+CTO&background=random" class="w-16 h-16 rounded-2xl">
+                <div>
+                    <p class="font-bold">Heamanath</p>
+                    <p class="text-xs text-slate-500">Master Detailer</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button class="flex-1 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl font-bold text-sm">Message</button>
+                <button class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm">Call Now</button>
+            </div>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-3xl text-sm space-y-3">
+            <div class="flex justify-between"><span class="text-slate-500">Service:</span> <span class="font-bold">Marine Wax</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Est. Arrival:</span> <span class="font-bold">11:45 AM</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Distance:</span> <span class="font-bold">4.2 km</span></div>
+        </div>
+    </div>
+</div>
+            
+         <!-- Maintenance History Section -->
+<div x-show="activeTab === 'logs'" x-cloak class="space-y-6">
+    
+    <!-- Stats Header -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-blue-600 p-6 rounded-3xl text-white shadow-lg shadow-blue-600/20">
+            <p class="text-blue-100 text-xs font-bold uppercase tracking-wider">Total Services</p>
+            <h3 class="text-3xl font-bold mt-1">12</h3>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Last Visit</p>
+            <h3 class="text-3xl font-bold mt-1">05 Jun</h3>
+        </div>
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Next Scheduled</p>
+            <h3 class="text-3xl font-bold mt-1">12 Aug</h3>
+        </div>
+    </div>
+
+    <!-- History Ledger -->
+    <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6">Service Timeline</h2>
+        
+        <div class="space-y-4">
+            <!-- Ledger Entry Template -->
+            <template x-for="log in [
+                {date: '05/06/2026', service: 'Exterior Marine Wax', tech: 'Heamanath', status: 'Completed'},
+                {date: '15/04/2026', service: 'Full Interior Detail', tech: 'Sree Sabarish', status: 'Completed'},
+                {date: '10/02/2026', service: 'Engine Bay Flush', tech: 'Tejeshwar M G', status: 'Completed'}
+            ]">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-blue-400 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <!-- Professional Calendar Icon -->
+                        <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-white" x-text="log.service"></p>
+                            <p class="text-xs text-slate-500" x-text="log.date + ' • Tech: ' + log.tech"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 mt-4 sm:mt-0 w-full sm:w-auto justify-between">
+                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-[10px] font-bold uppercase rounded-lg" x-text="log.status"></span>
+                        <!-- Professional Download Icon -->
+                        <button class="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-bold">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Invoice
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

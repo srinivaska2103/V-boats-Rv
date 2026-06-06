@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark', rtl: localStorage.getItem('dir') === 'rtl' }" 
+      :class="darkMode ? 'dark' : ''" :dir="rtl ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 5L20 35L35 5' stroke='%232563eb' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 5L20 22L28 5' stroke='%2393c5fd' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <title>Log In | V-Boats & RV</title>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+  <header class="flex justify-between items-center p-6 md:px-12 absolute w-full">
+          <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+            <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L20 22L28 5" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-xl font-bold tracking-tight">V-Boats & RV</span>
+        </a>
+             <div class="flex items-center gap-2 pl-4">
+    <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
+        ☀️
+    </button>
+    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
+        LTR
+    </button>
+</div>
+    </header>
+</header>
+    <main class="min-h-screen flex flex-col items-center justify-center p-4">
+       
+       
+
+        <!-- Login Card -->
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+            <div class="mb-8">
+                <h2 class="text-3xl text-center font-bold mb-2">Welcome Back</h2>
+                <p class="text-slate-500 text-center font-medium">Enter your credentials to continue</p>
+            </div>
+
+            <form class="space-y-5">
+                <input type="email" placeholder="name@company.com" class="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all">
+                
+               <div class="relative" x-data="{ showPass: false }">
+    <input :type="showPass ? 'text' : 'password'" 
+           placeholder="Enter password" 
+           class="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all pr-12">
+    
+    <button type="button" 
+            @click="showPass = !showPass" 
+            class="absolute right-4 top-4 text-slate-400 hover:text-blue-600 transition-colors">
+        <svg x-show="!showPass" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        
+        <svg x-show="showPass" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.7 9.7 0 012.73-3.83m6.812-1.334A3 3 0 0115 12c0 .487-.11.948-.3 1.365m-2.122-2.122l2.122 2.122M15 15l-3 3M3 3l18 18" />
+        </svg>
+    </button>
+</div>
+
+                <div class="flex justify-between items-center text-sm">
+                    <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-600 dark:text-slate-400">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600"> Remember me
+                    </label>
+                    <a href="#" class="text-blue-600 font-semibold hover:underline">Forgot Password?</a>
+                </div>
+
+                <button class="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20">Sign In</button>
+            </form>
+
+            <div class="my-8 flex items-center gap-4">
+                <div class="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
+                <span class="text-xs text-slate-400 uppercase font-bold">Or continue with</span>
+                <div class="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
+            </div>
+
+            <div class="flex gap-4">
+    <button aria-label="Sign in with Google" class="flex-1 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 flex justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95">
+        <svg class="w-6 h-6" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.97 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+    </button>
+
+    <button aria-label="Sign in with Facebook" class="flex-1 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 flex justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95">
+        <svg class="w-6 h-6" fill="#1877F2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+    </button>
+
+    <button aria-label="Sign in with Apple" class="flex-1 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 flex justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95">
+        <svg class="w-6 h-6 dark:fill-white" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.05 13.58c-.13 3.5 3.12 4.7 3.2 4.73-.03.11-.53 1.85-1.74 3.63-1.06 1.57-2.18 3.13-3.86 3.13-1.64 0-2.16-1-4.04-1-1.89 0-2.45 1-4.05 1-1.63 0-2.83-1.63-3.9-3.21-2.12-3.15-3.75-8.91-1.57-12.75 1.13-1.95 3.15-3.19 5.33-3.22 1.63-.03 3.18 1.1 4.12 1.1.95 0 2.65-1.28 4.47-1.1.76.03 2.92.3 4.29 2.25-.11.07-2.58 1.52-2.55 4.45zM12.98 5.72c.86-.99 1.44-2.37 1.28-3.73-1.25.05-2.77.85-3.66 1.9-.81.93-1.47 2.33-1.28 3.67 1.4.11 2.76-.78 3.66-1.84z"/>
+        </svg>
+    </button>
+</div>
+
+            <p class="text-center mt-8 text-sm dark:text-slate-400">Don't have an account? <a href="singup.html" class="text-blue-600 font-bold hover:underline">Sign up</a></p>
+        </div>
+    </main>
+</body>
+</html>

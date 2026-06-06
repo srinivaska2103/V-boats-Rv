@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark', rtl: localStorage.getItem('dir') === 'rtl' }" 
+      :class="darkMode ? 'dark' : ''" :dir="rtl ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 5L20 35L35 5' stroke='%232563eb' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 5L20 22L28 5' stroke='%2393c5fd' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <title>Coming Soon | V-Boats & RV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center p-6 md:px-12 w-full">
+        <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+            <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L20 22L28 5" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-xl font-bold tracking-tight">V-Boats & RV</span>
+        </a>
+        
+        <div class="flex items-center gap-2">
+            <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+                    class="w-10 h-10 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">☀️</button>
+            <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+                    class="w-10 h-10 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">LTR</button>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+        <div class="max-w-2xl">
+            <span class="inline-block py-1 px-4 mb-6 text-sm font-semibold tracking-widest uppercase rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                Something exciting is coming
+            </span>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tighter">We're getting ready!</h1>
+            
+            <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-medium mb-10">
+                Our new service platform is under construction. Subscribe below to be the first to know when we launch.
+            </p>
+
+            <!-- Newsletter Input -->
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" x-data="{ email: '' }">
+                <input type="email" placeholder="Enter your email" 
+                       class="flex-1 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-blue-600 transition-all">
+                <button class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    Notify Me
+                </button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

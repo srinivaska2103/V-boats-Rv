@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" 
+      x-data="{ 
+          darkMode: localStorage.getItem('theme') === 'dark', 
+          rtl: localStorage.getItem('dir') === 'rtl',
+          mobileMenu: false,
+          dropdown: false
+      }" 
+      :class="darkMode ? 'dark' : ''" 
+      :dir="rtl ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 5L20 35L35 5' stroke='%232563eb' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 5L20 22L28 5' stroke='%2393c5fd' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <title>V-Boats & RV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#0ea5e9', dark: '#0369a1' },
+                        secondary: '#1e293b'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+  
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    </style>
+</head>
+<body class="bg-white dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 transition-colors duration-300">
+
+<nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+            <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L20 22L28 5" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-xl font-bold tracking-tight">V-Boats & RV</span>
+        </a>
+
+        <div class="hidden lg:flex items-center lg:gap-3 xl:gap-6 font-medium text-sm xl:text-base">
+            <a href="index.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home</a>
+            <a href="home2.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home2</a>
+            <a href="aboutus.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">About</a>
+            <a href="services.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Services</a>
+            <a href="pricing.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Pricing</a>
+            <a href="gallery.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Gallery</a>
+            <a href="contact.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Contact</a>
+            
+            <div class="relative" @click.away="dropdown = false">
+                <button @click="dropdown = !dropdown" class="flex items-center gap-1 hover:text-primary whitespace-nowrap">Dashboard ▾</button>
+                <div x-show="dropdown" class="absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 shadow-xl rounded-lg p-2 border border-slate-200 dark:border-slate-700 z-50">
+                    <a href="user.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700">Profile</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 pl-4">
+    <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
+        ☀️
+    </button>
+    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
+        LTR
+    </button>
+</div>
+            
+            <a href="login.html" class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
+            <a href="booknow.html" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition text-sm whitespace-nowrap">Book Now</a>
+        </div>
+
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-2xl">☰</button>
+    </div>
+</nav>
+<div x-show="mobileMenu" 
+     x-cloak
+     x-collapse
+     class="lg:hidden fixed top-20 left-0 w-full z-40 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="flex flex-col p-4 gap-2">
+        <a href="index.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Home</a>
+        <a href="home2.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Home2</a>
+        <a href="aboutus.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">About Us</a>
+        <a href="services.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Services</a>
+        <a href="pricing.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Pricing</a>
+        <a href="gallery.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Gallery</a>
+        <a href="contact.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Contact</a>
+        
+        <div x-data="{ drop: false }" class="border-t border-slate-200 dark:border-slate-800 pt-2">
+            <button @click="drop = !drop" class="w-full text-left p-2 font-medium flex justify-between items-center">
+                Dashboard <span :class="drop ? 'rotate-180' : ''" class="transition-transform">▾</span>
+            </button>
+            <div x-show="drop" x-collapse class="pl-4">
+                <a href="user.html" class="block p-2 text-sm hover:text-primary">User Profile</a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-2">
+    <button 
+        @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+        class="flex items-center justify-center gap-2 p-2.5 text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 active:scale-95 transition-all duration-200 rounded-lg">
+        <span x-show="!darkMode">☀️ </span>
+        <span x-show="darkMode" class="hidden dark:inline">🌙</span>
+    </button>
+
+    <button 
+        @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+        class="flex items-center justify-center gap-2 p-2.5 text-xs font-semibold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 active:scale-95 transition-all duration-200 rounded-lg">
+        <span x-show="!rtl"> LTR</span>
+        <span x-show="rtl" class="hidden dark:inline">RTL </span>
+    </button>
+</div>
+
+        <a href="login.html" class="mt-2 text-center py-2 border border-slate-300 dark:border-slate-700 rounded-lg">Login</a>
+        <a href="booknow.html" class="bg-blue-600 text-center text-white py-2 rounded-lg font-bold">Book Now</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            if (currentPath.includes(link.getAttribute("href"))) {
+                link.classList.add("text-primary", "font-bold", "border-primary");
+            }
+        });
+    });
+</script>
+<section class="relative py-24 px-4 overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-200 dark:bg-blue-900/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+    
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+        <span class="inline-block py-1 px-4 mb-6 text-sm font-semibold tracking-widest uppercase rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            Let's Connect
+        </span>
+        
+        <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight dark:text-white">
+            Have a question or <br class="hidden md:block"> need a <span class="text-blue-600">custom quote?</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto font-medium">
+            Whether it's for boat restoration or RV detailing, our team is ready to assist. Reach out and we'll get back to you within 24 hours.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact-form" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-600/30">
+                Send a Message
+            </a>
+            <a href="tel:+91XXXXXXXXXX" class="px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-600 text-slate-900 dark:text-white rounded-2xl font-semibold transition-all hover:scale-105 active:scale-95">
+                Call Us Directly
+            </a>
+        </div>
+    </div>
+</section>
+<section class="py-20 px-4 bg-slate-50 dark:bg-slate-950 transition-colors">
+    <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <div class="space-y-10">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Get in Touch</h2>
+                    <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                        Have questions about our detailing process? Our team is available to help you choose the right service for your vessel.
+                    </p>
+                </div>
+
+               <div class="space-y-8">
+    <div class="flex items-start gap-4 group">
+        <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        </div>
+        <div>
+            <h4 class="font-bold">Call Us</h4>
+            <a href="tel:+919999999999" class="text-slate-500 hover:text-blue-600 transition-colors">+91 99999 99999</a>
+        </div>
+    </div>
+
+    <div class="flex items-start gap-4 group">
+        <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+            <h4 class="font-bold">Email Support</h4>
+            <a href="mailto:hello@vboatsrv.com" class="text-slate-500 hover:text-blue-600 transition-colors">hello@vboatsrv.com</a>
+        </div>
+    </div>
+
+    <div class="flex items-start gap-4 group">
+        <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div>
+            <h4 class="font-bold">Visit Our Office</h4>
+            <p class="text-slate-500 text-sm">123 Marine Way, Chennai, TN 600001</p>
+        </div>
+    </div>
+
+    <div class="flex items-start gap-4 group">
+        <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-purple-100 dark:bg-purple-900/30 text-purple-600 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+            <h4 class="font-bold">Business Hours</h4>
+            <p class="text-slate-500 text-sm">Mon - Sat: 9:00 AM - 7:00 PM</p>
+        </div>
+    </div>
+</div>
+            </div>
+
+           <form x-data="{ 
+        status: 'idle', 
+        name: '', 
+        email: '', 
+        message: '',
+        submitForm() {
+            if(!this.name || !this.email) { alert('Please fill in the required fields'); return; }
+            this.status = 'loading';
+            // Simulate API Call
+            setTimeout(() => { this.status = 'success'; }, 2000);
+        } 
+      }" 
+      @submit.prevent="submitForm"
+      class="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 space-y-6">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input type="text" x-model="name" placeholder="Your Name" required
+               class="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-slate-900 transition-all">
+        <input type="email" x-model="email" placeholder="Email Address" required
+               class="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-slate-900 transition-all">
+    </div>
+
+    <input type="text" placeholder="Subject" 
+           class="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-slate-900 transition-all">
+
+    <textarea x-model="message" rows="4" placeholder="How can we help?" 
+              class="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-slate-900 transition-all"></textarea>
+    
+    <!-- Submit Button with Dynamic State -->
+    <button type="submit" 
+            :disabled="status !== 'idle'"
+            :class="status === 'success' ? 'bg-green-600' : 'bg-blue-600'"
+            class="w-full py-4 text-white rounded-xl font-bold transition-all active:scale-[0.98] shadow-lg flex items-center justify-center gap-2">
+        
+        <span x-show="status === 'idle'">Send Message</span>
+        <span x-show="status === 'loading'" class="animate-pulse">Sending...</span>
+        <span x-show="status === 'success'">Message Sent! ✨</span>
+    </button>
+</form>
+        </div>
+    </div>
+</section>
+<section class="py-20 px-4 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto">
+       
+
+        <!-- Map Container -->
+        <div class="relative w-full h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 group">
+            
+            <!-- Replace this iframe with your actual Google Maps Embed link -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.7485295556754!2d80.2520!3d13.0827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526598e09e3e3b%3A0x633d7d7f7229b354!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" 
+                class="w-full h-full grayscale-[0.5] hover:grayscale-0 transition-all duration-700"
+                style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+
+            <!-- Floating Info Card (Glassmorphism) -->
+            <div class="absolute bottom-6 left-6 right-6 md:right-auto md:w-80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-white/20 dark:border-slate-700">
+                <h4 class="font-bold text-lg dark:text-white mb-2">V-Boats & RV</h4>
+                <p class="text-sm text-slate-600 dark:text-slate-400 font-medium mb-4">
+                    123 Marine Way, Chennai, Tamil Nadu, 600001
+                </p>
+                <a href="https://maps.google.com" target="_blank" 
+                   class="inline-block w-full py-3 text-center bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all hover:shadow-lg">
+                    Get Directions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+  <footer class="bg-slate-100 dark:bg-slate-950 pt-16 pb-8 px-4 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        
+        <div class="flex flex-col gap-4">
+            <a href="index.html" class="flex items-center space-x-2">
+                <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 5L20 22L28 5" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="text-xl font-bold tracking-tight">V-Boats & RV</span>
+            </a>
+            <p class="text-sm opacity-70 leading-relaxed max-w-xs">Premium mobile detailing solutions for Boats & RVs. We come to you.</p>
+           <div class="flex items-center gap-4 mt-2">
+                <a href="#" class="hover:text-primary transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                <a href="#" class="hover:text-primary transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                <a href="#" class="hover:text-primary transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="font-bold mb-4">Quick Links</h3>
+            <div class="flex flex-col gap-2 text-sm opacity-80">
+                <a href="index.html" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="home2.html" class="hover:text-blue-600 transition-colors">Home2</a>
+                <a href="aboutus.html" class="hover:text-blue-600 transition-colors">About Us</a>
+                <a href="services.html" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="pricing.html" class="hover:text-blue-600 transition-colors">Pricing</a>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="font-bold mb-4">Navigation</h3>
+            <div class="flex flex-col gap-2 text-sm opacity-80">
+                <a href="booknow.html" class="hover:text-blue-600 transition-colors">Book Now</a>
+                <a href="gallery.html" class="hover:text-blue-600 transition-colors">Gallery</a>
+                <a href="contact.html" class="hover:text-blue-600 transition-colors">Contact Us</a>
+                <a href="404.html" class="hover:text-blue-600 transition-colors">404 Error</a>
+                <a href="comingsoon.html" class="hover:text-blue-600 transition-colors">Coming Soon</a>
+            </div>
+        </div>
+
+        <div x-data="{ email: '', status: 'idle' }">
+            <h3 class="font-bold mb-4">Newsletter</h3>
+            <p class="text-sm opacity-70 mb-4">Get the latest detailing tips.</p>
+            <form @submit.prevent="status = 'loading'; setTimeout(() => status = 'success', 1000)" class="flex flex-col gap-2">
+                <input type="email" x-model="email" placeholder="Email Address" required class="w-full p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-blue-600 outline-none transition-all">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all active:scale-95">
+                    <span x-show="status === 'idle'">Subscribe</span>
+                    <span x-show="status === 'loading'">Sending...</span>
+                    <span x-show="status === 'success'">Subscribed!</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 text-center text-sm opacity-60">
+        <p>&copy; <span id="year">2026</span> V-Boats & RV. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>
