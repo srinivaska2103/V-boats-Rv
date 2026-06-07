@@ -64,15 +64,15 @@
             </div>
             
             <div class="flex items-center gap-2 pl-4">
-    <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
-        ☀️
-    </button>
-    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
-            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
-        LTR
-    </button>
-</div>
+                <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+                        class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
+                    ☀️
+                </button>
+                <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+                        class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
+                    LTR
+                </button>
+            </div>
             
             <a href="login.html" class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
             <a href="booknow.html" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition text-sm whitespace-nowrap">Book Now</a>
@@ -81,6 +81,16 @@
         <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-2xl">☰</button>
     </div>
 </nav>
+
+<!-- Mobile Menu Drawer (Visible below 1024px) -->
+<div x-show="mobileMenu" x-cloak class="lg:hidden bg-white dark:bg-[#0f172a] border-b border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-4">
+    <a href="index.html">Home</a>
+    <a href="aboutus.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html" class="text-blue-600 font-bold">Login</a>
+    <a href="booknow.html" class="bg-blue-600 text-white text-center py-3 rounded-full">Book Now</a>
+</div>
 <div x-show="mobileMenu" 
      x-cloak
      x-collapse
@@ -345,36 +355,37 @@
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Benefit 1: Mobile First -->
-            <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
-                <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 dark:text-white">Mobile Convenience</h3>
-                <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Stop wasting time towing your vehicle. Our fully-equipped workshop travels to your location, saving you hours.</p>
-            </div>
-
-            <!-- Benefit 2: Marine-Grade Products -->
-            <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
-                <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 dark:text-white">Premium Quality</h3>
-                <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">We use only high-end, eco-friendly marine-grade products specifically engineered to protect against harsh salt.</p>
-            </div>
-
-            <!-- Benefit 3: Expert Precision -->
-            <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
-                <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 dark:text-white">Expert Results</h3>
-                <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Our technicians are trained in advanced detailing techniques, ensuring every nook and cranny receives the deserves.</p>
-            </div>
-
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+    
+    <!-- Benefit 1 -->
+    <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
+        <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
         </div>
+        <h3 class="text-2xl font-bold mb-4 dark:text-white">Mobile Convenience</h3>
+        <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Stop wasting time towing your vehicle. Our fully-equipped workshop travels to your location, saving you hours.</p>
+    </div>
+
+    <!-- Benefit 2 -->
+    <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
+        <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 dark:text-white">Premium Quality</h3>
+        <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">We use only high-end, eco-friendly marine-grade products specifically engineered to protect against harsh salt.</p>
+    </div>
+
+    <!-- Benefit 3: Centered on Tablet/Desktop -->
+    <!-- md:col-span-2 ensures it takes full width on tablets; lg:col-span-1 resets it for desktop -->
+    <div class="md:col-span-2 lg:col-span-1 p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group">
+        <div class="w-16 h-16 bg-blue-600 rounded-3xl flex items-center justify-center text-white mb-8 group-hover:rotate-12 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 dark:text-white">Expert Results</h3>
+        <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Our technicians are trained in advanced detailing techniques, ensuring every nook and cranny receives the care it deserves.</p>
+    </div>
+
+</div>
     </div>
 </section>
 <section class="py-16 px-4 dark:bg-slate-950 ">
@@ -383,20 +394,20 @@
         <!-- Stat 1 -->
         <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:border-blue-600 cursor-default">
             <h3 class="text-5xl font-bold mb-2">500+</h3>
-            <p class="font-medium text-blue-100 uppercase tracking-widest text-xs">Details Completed</p>
+            <p class="font-medium text-slate-500 uppercase tracking-widest text-xs dark:text-white">Details Completed</p>
         </div>
 
         <!-- Stat 2 -->
         <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:border-blue-600 cursor-default">
             <h3 class="text-5xl font-bold mb-2 text-slate-900 dark:text-white">4.9</h3>
-            <p class="font-medium text-slate-500 uppercase tracking-widest text-xs">Customer Rating</p>
-            <div class="mt-2 text-yellow-400">★★★★★</div>
+            <p class="font-medium text-slate-500 uppercase tracking-widest text-xs dark:text-white ">Customer Rating</p>
+            <!-- <div class="mt-2 text-yellow-400">★★★★★</div> -->
         </div>
 
         <!-- Stat 3 -->
         <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:border-blue-600 cursor-default">
             <h3 class="text-5xl font-bold mb-2 text-slate-900 dark:text-white">3+</h3>
-            <p class="font-medium text-slate-500 uppercase tracking-widest text-xs">Years Experience</p>
+            <p class="font-medium text-slate-500 uppercase tracking-widest text-xs dark:text-white">Years Experience</p>
         </div>
 
     </div>
@@ -560,7 +571,7 @@
 
             <div class="group p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-[0_20px_50px_rgba(168,85,247,0.15)] transition-all duration-500 hover:-translate-y-2 flex flex-col">
                 <div class="flex items-center gap-4 mb-4">
-                    <img src="assets/g2" class="w-12 h-12 rounded-full ring-2 ring-purple-500/20" alt="Client">
+                    <img src="assets/b2" class="w-12 h-12 rounded-full ring-2 ring-purple-500/20" alt="Client">
                     <div>
                         <h4 class="font-bold">Arun M.</h4>
                         <div class="text-yellow-400 text-xs">★★★★★</div>
@@ -572,7 +583,7 @@
 
             <div class="group p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-[0_20px_50px_rgba(245,158,11,0.15)] transition-all duration-500 hover:-translate-y-2 flex flex-col">
                 <div class="flex items-center gap-4 mb-4">
-                    <img src="assets/b2" class="w-12 h-12 rounded-full ring-2 ring-amber-500/20" alt="Client">
+                    <img src="assets/g2" class="w-12 h-12 rounded-full ring-2 ring-amber-500/20" alt="Client">
                     <div>
                         <h4 class="font-bold">Sneha V.</h4>
                         <div class="text-yellow-400 text-xs">★★★★★</div>

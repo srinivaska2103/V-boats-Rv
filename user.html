@@ -28,74 +28,59 @@
 <div class="flex h-screen overflow-hidden">
     
     <!-- Mobile/Tablet Overlay -->
-    <div x-show="sidebarOpen && window.innerWidth < 1024" @click="sidebarOpen = false" 
-         class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+    <div x-show="sidebarOpen && window.innerWidth < 1024" 
+     @click="sidebarOpen = false"
+     class="fixed inset-0 bg-black/50 z-40 lg:hidden">
+</div>
 
-    <!-- Sidebar Navigation -->
-    <aside :class="sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0 lg:w-20'" 
+<aside :class="sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0 lg:w-20'" 
        class="fixed lg:relative z-50 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 shadow-2xl lg:shadow-none flex flex-col flex-shrink-0 overflow-hidden">
     
-    <!-- Sidebar Header -->
     <div class="h-20 flex items-center px-6 flex-shrink-0">
-        <!-- Brand Name (Hidden when collapsed on desktop) -->
-         <a href="index.html">
-           <div class="font-bold text-2xl truncate" x-show="sidebarOpen || window.innerWidth >= 1024">V-Boats & RV</div>
-
-         </a>
-        <!-- Close Button (Only for mobile/tablet) -->
+        <a href="index.html" class="flex items-center space-x-2 flex-shrink-0 overflow-hidden">
+            <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L20 22L28 5" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-xl font-bold tracking-tight whitespace-nowrap" x-show="sidebarOpen || window.innerWidth >= 1024">V-Boats & RV</span>
+        </a>
         <button @click="sidebarOpen = false" class="lg:hidden ml-auto text-2xl">✕</button>
     </div>
     
-    <!-- Navigation -->
- <nav class="mt-6 px-4 space-y-2 flex-1 flex flex-col">
+   <nav class="mt-6 px-4 space-y-2 flex-1 flex flex-col">
     <div class="flex-1 space-y-2">
         <template x-for="item in [
-            {
-                id: 'schedule', 
-                label: 'Schedule', 
-                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/></svg>`
-            }, 
-            {
-                id: 'photos', 
-                label: 'Uploads', 
-                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z'/></svg>`
-            }, 
-            {
-                id: 'track', 
-                label: 'Tracking', 
-                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/></svg>`
-            }, 
-            {
-                id: 'logs', 
-                label: 'Logs', 
-                icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'/></svg>`
-            }
+            { id: 'schedule', label: 'Schedule', icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/></svg>` }, 
+            { id: 'photos', label: 'Uploads', icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z'/></svg>` }, 
+            { id: 'track', label: 'Tracking', icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/></svg>` }, 
+            { id: 'logs', label: 'Logs', icon: `<svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'/></svg>` }
         ]">
             <button @click="activeTab = item.id; if(window.innerWidth < 1024) sidebarOpen = false"
-                    :class="activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'"
-                    class="w-full flex items-center p-3 rounded-xl transition-all font-semibold whitespace-nowrap group">
-                <span class="flex-shrink-0" :class="sidebarOpen || window.innerWidth >= 1024 ? 'mr-3' : 'mx-auto'" x-html="item.icon"></span>
-                <span x-show="sidebarOpen || window.innerWidth >= 1024" x-transition:enter="transition ease-out duration-200" x-text="item.label"></span>
+                    :class="activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                    class="w-full flex items-center p-3 rounded-xl transition-all font-semibold overflow-hidden">
+                
+                <span class="flex-shrink-0" :class="sidebarOpen ? 'mr-3' : 'lg:mx-auto'" x-html="item.icon"></span>
+                
+                <span class="truncate transition-all duration-200" 
+                      :class="(sidebarOpen || window.innerWidth >= 1024) ? 'opacity-100 block' : 'opacity-0 hidden'" 
+                      x-text="item.label">
+                </span>
             </button>
         </template>
     </div>
 
     <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
-       <a href="login.html">
-         <button onclick="window.location.href='/logout'"
-                class="w-full flex items-center p-3 rounded-xl transition-all font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 whitespace-nowrap">
-            <span class="flex-shrink-0" :class="sidebarOpen || window.innerWidth >= 1024 ? 'mr-3' : 'mx-auto'">
+        <a href="login.html" class="w-full flex items-center p-3 rounded-xl transition-all font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
+            <span class="flex-shrink-0" :class="sidebarOpen ? 'mr-3' : 'lg:mx-auto'">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
             </span>
-            <span x-show="sidebarOpen || window.innerWidth >= 1024" x-text="'Logout'"></span>
-        </button>
-       </a>
-       
+            <span class="truncate transition-all duration-200" 
+                  :class="(sidebarOpen || window.innerWidth >= 1024) ? 'opacity-100 block' : 'opacity-0 hidden'">Logout</span>
+        </a>
     </div>
 </nav>
-           
-   
 </aside>
+
 
     <!-- Main View -->
     <main class="flex-1 flex flex-col h-full overflow-hidden">
@@ -242,17 +227,11 @@
         </div>
 
         <div class="bg-slate-200 dark:bg-slate-800 h-64 rounded-3xl flex items-center justify-center border border-slate-300 dark:border-slate-700">
-<div x-init="
-        map = L.map('live-map').setView([13.0827, 80.2707], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-        // Add Marker
-        L.marker([13.0827, 80.2707]).addTo(map).bindPopup('Technician Location');
-    " 
-    id="live-map" 
-    class="h-64 md:h-96 w-full rounded-3xl border border-slate-300 dark:border-slate-700 shadow-inner overflow-hidden">
-    </div>
+ <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.7485295556754!2d80.2520!3d13.0827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526598e09e3e3b%3A0x633d7d7f7229b354!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin" 
+                class="w-full h-full grayscale-[0.5] hover:grayscale-0 transition-all duration-700"
+                style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
         </div>
     </div>
 

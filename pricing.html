@@ -37,8 +37,10 @@
 </head>
 <body class="bg-white dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
+
 <nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+    <!-- Adjusted padding for 1024px width -->
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
         <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
             <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 5L20 35L35 5" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,8 +49,9 @@
             <span class="text-xl font-bold tracking-tight">V-Boats & RV</span>
         </a>
 
-        <div class="hidden lg:flex items-center lg:gap-3 xl:gap-6 font-medium text-sm xl:text-base">
-            <a href="index.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home</a>
+        <!-- Desktop Menu: Uses 'lg:flex' (1024px) -->
+        <div class="hidden lg:flex items-center gap-3 xl:gap-5 font-medium text-sm">
+           <a href="index.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home</a>
             <a href="home2.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home2</a>
             <a href="aboutus.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">About</a>
             <a href="services.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Services</a>
@@ -56,36 +59,33 @@
             <a href="gallery.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Gallery</a>
             <a href="contact.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Contact</a>
             
+            
             <div class="relative" @click.away="dropdown = false">
-                <button @click="dropdown = !dropdown" class="flex items-center gap-1 hover:text-primary whitespace-nowrap">Dashboard ▾</button>
-                <div x-show="dropdown" class="absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 shadow-xl rounded-lg p-2 border border-slate-200 dark:border-slate-700 z-50">
+                <button @click="dropdown = !dropdown" class="hover:text-blue-600 whitespace-nowrap">Dashboard ▾</button>
+                <div x-show="dropdown" x-cloak class="absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 shadow-xl rounded-lg p-2 border border-slate-200 dark:border-slate-700 z-50">
                     <a href="user.html" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700">Profile</a>
                 </div>
             </div>
             
-            <div class="flex items-center gap-2 pl-4">
-    <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
-        ☀️
-    </button>
-    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
-            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
-        LTR
-    </button>
-</div>
+            <div class="flex items-center gap-2 pl-2">
+                <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+                        class="w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">☀️</button>
+                <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+                        class="w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">LTR</button>
+            </div>
             
-            <a href="login.html" class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
-            <a href="booknow.html" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition text-sm whitespace-nowrap">Book Now</a>
+            <a href="login.html" class="px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
+            <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition text-sm whitespace-nowrap">Book Now</a>
         </div>
 
-        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-2xl">☰</button>
+        <!-- Mobile Trigger -->
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-2xl p-2">☰</button>
     </div>
 </nav>
-<div x-show="mobileMenu" 
-     x-cloak
-     x-collapse
-     class="lg:hidden fixed top-20 left-0 w-full z-40 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-    <div class="flex flex-col p-4 gap-2">
+
+<!-- Mobile Menu Drawer: Now fully compatible with 1024px -->
+<div x-show="mobileMenu" x-cloak class="lg:hidden fixed inset-0 z-40 pt-24 bg-white dark:bg-[#0f172a] p-8 flex flex-col gap-6 text-xl font-bold">
+      <div class="flex flex-col p-4 gap-2">
         <a href="index.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Home</a>
         <a href="home2.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">Home2</a>
         <a href="aboutus.html" class="nav-link p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800">About Us</a>
