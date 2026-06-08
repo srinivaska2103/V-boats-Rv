@@ -50,7 +50,7 @@
 
         <!-- Desktop Menu: Uses 'lg:flex' (1024px) -->
         <div class="hidden lg:flex items-center gap-3 xl:gap-5 font-medium text-sm">
-           <a href="index.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home</a>
+           <a href="index.html" class="nav-link hover:text-blue-600 border-b-2 border-transparent transition-all duration-200">Home</a>
             <a href="home2.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home2</a>
             <a href="aboutus.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">About</a>
             <a href="services.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Services</a>
@@ -73,8 +73,15 @@
                         class="w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">LTR</button>
             </div>
             
-            <a href="login.html" class="px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
-            <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition text-sm whitespace-nowrap">Book Now</a>
+            <a href="login.html" 
+   class="w-28 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">
+   Login
+</a>
+
+<a href="booknow.html" 
+   class="w-28 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition text-sm whitespace-nowrap">
+   Book Now
+</a>
         </div>
 
         <!-- Mobile Trigger -->
@@ -122,15 +129,14 @@
         <a href="booknow.html" class="bg-blue-600 text-center text-white py-2 rounded-lg font-bold">Book Now</a>
     </div>
 </div>
-
-
+ 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             if (currentPath.includes(link.getAttribute("href"))) {
-                link.classList.add("text-primary", "font-bold", "border-primary");
+                link.classList.add("text-blue-600", "font-bold", "border-blue-600");
             }
         });
     });

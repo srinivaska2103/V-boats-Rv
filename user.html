@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" x-data="{ 
     darkMode: localStorage.getItem('dark') === 'true',
-    dir: localStorage.getItem('dir') || 'ltr',
+     rtl: localStorage.getItem('dir') === 'rtl',
     sidebarOpen: window.innerWidth > 1024,
     activeTab: 'schedule' 
-}" :class="{'dark': darkMode}" :dir="dir">
+}" :class="{'dark': darkMode}" :dir="rtl ? 'rtl' : 'ltr'">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,10 +95,8 @@
             class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg hover:scale-105 transition-transform">
         ☀️
     </button>
-    <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
-            class="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">
-        LTR
-    </button>
+ <button @click="rtl = !rtl; localStorage.setItem('dir', rtl ? 'rtl' : 'ltr')" 
+                        class="w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">LTR</button>
 </div>
 <button class="relative p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-slate-600 dark:text-slate-300 hover:scale-105 transition-all">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

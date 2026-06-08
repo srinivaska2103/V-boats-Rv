@@ -38,6 +38,7 @@
 <body class="bg-white dark:bg-[#0f172a] text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
 
+
 <nav class="sticky top-0 z-50 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
     <!-- Adjusted padding for 1024px width -->
     <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
@@ -51,7 +52,7 @@
 
         <!-- Desktop Menu: Uses 'lg:flex' (1024px) -->
         <div class="hidden lg:flex items-center gap-3 xl:gap-5 font-medium text-sm">
-           <a href="index.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home</a>
+           <a href="index.html" class="nav-link hover:text-blue-600 border-b-2 border-transparent transition-all duration-200">Home</a>
             <a href="home2.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Home2</a>
             <a href="aboutus.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">About</a>
             <a href="services.html" class="nav-link hover:text-primary border-b-2 border-transparent transition-all duration-200">Services</a>
@@ -74,8 +75,15 @@
                         class="w-9 h-9 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold dark:text-white hover:scale-105 transition-transform">LTR</button>
             </div>
             
-            <a href="login.html" class="px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">Login</a>
-            <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition text-sm whitespace-nowrap">Book Now</a>
+            <a href="login.html" 
+   class="w-28 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-sm">
+   Login
+</a>
+
+<a href="booknow.html" 
+   class="w-28 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition text-sm whitespace-nowrap">
+   Book Now
+</a>
         </div>
 
         <!-- Mobile Trigger -->
@@ -123,14 +131,14 @@
         <a href="booknow.html" class="bg-blue-600 text-center text-white py-2 rounded-lg font-bold">Book Now</a>
     </div>
 </div>
-
+ 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             if (currentPath.includes(link.getAttribute("href"))) {
-                link.classList.add("text-primary", "font-bold", "border-primary");
+                link.classList.add("text-blue-600", "font-bold", "border-blue-600");
             }
         });
     });
@@ -178,124 +186,62 @@
         </div>
     </div>
 </section>
-<section class="py-20 px-4 bg-slate-50 dark:bg-slate-950">
+<section class="py-24 px-4 bg-slate-50 dark:bg-slate-950">
     <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Our Services</h2>
-            <p class="text-slate-600 dark:text-slate-400">Premium care for your boats and RVs.</p>
+        <!-- Header -->
+        <div class="text-center mb-16 space-y-4">
+            <span class="text-blue-600 font-bold tracking-widest uppercase text-sm">Our Premium Fleet Care</span>
+            <h2 class="text-5xl md:text-6xl font-extrabold tracking-tight dark:text-white">Exceptional Services</h2>
         </div>
 
-        <!-- 6-Card Grid: Responsive -->
+        <!-- Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Card 1: Boat Detailing -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/Boat Detail" alt="Boat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> Boat Detail</div>
-                </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ Exterior Wash & Wax</li>
-                    <li>✓ Oxidation Removal</li>
-                    <li>✓ Gelcoat Restoration</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold text-blue-600">₹4,999</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-                </div>
-            </div>
+            <template x-for="service in [
+                { title: 'Boat Detail', price: '₹4,999', img: 'assets/Boat Detail', list: ['Exterior Wash & Wax', 'Oxidation Removal', 'Gelcoat Restoration'] },
+                { title: 'RV Detail', price: '₹6,499', img: 'assets/RV', list: ['Roof Seal Check', 'Carpet Shampoo', 'Tire & Rim Detail'] },
+                { title: 'Deep Clean', price: '₹3,999', img: 'assets/Deep Clean', list: ['Upholstery Steam', 'Odor Elimination', 'Cabin Sanitizing'] },
+                { title: 'Ceramic', price: '₹9,999', img: 'assets/Coating', list: ['UV Protection', 'Hydrophobic Finish', '1-Year Warranty'] },
+                { title: 'Engine', price: '₹2,499', img: 'assets/Engine', list: ['Degreasing', 'Corrosion Protect', 'Belt Conditioning'] },
+                { title: 'Winterize', price: '₹5,599', img: 'assets/Winterize', list: ['Fluid Draining', 'Battery Storage', 'Full Body Cover'] }
+            ]">
+                <!-- Modern Interactive Card -->
+                <div class="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-3 shadow-sm hover:shadow-2xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2">
+                    
+                    <!-- Image Container -->
+                    <div class="relative h-64 w-full overflow-hidden rounded-[2rem]">
+                        <img :src="service.img" :alt="service.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute top-5 right-5 bg-white/10 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold border border-white/20 uppercase tracking-wider">Premium</div>
+                        
+                        <h3 class="absolute bottom-6 left-6 text-3xl font-bold text-white tracking-tight" x-text="service.title"></h3>
+                    </div>
 
-            <!-- Card 2: RV Detailing -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/RV" alt="RV" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> RV Detail</div>
+                    <!-- Content -->
+                    <div class="px-3 pt-6 pb-4">
+                        <ul class="space-y-4 mb-8">
+                            <template x-for="item in service.list">
+                                <li class="flex items-center gap-3 text-slate-600 dark:text-slate-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                                    <div class="bg-blue-100 dark:bg-blue-900/30 p-1 rounded-full">
+                                        <svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <span x-text="item"></span>
+                                </li>
+                            </template>
+                        </ul>
+
+                        <!-- Footer CTA -->
+                        <div class="flex items-center justify-between mt-auto bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl">
+                            <span class="text-xl font-black text-slate-900 dark:text-white tracking-tight" x-text="service.price"></span>
+                            <a href="booknow.html" class="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 active:scale-95 transition-all">
+                                Book Now
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ Roof Seal Check</li>
-                    <li>✓ Carpet Shampoo</li>
-                    <li>✓ Tire & Rim Detail</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold text-blue-600">₹6,499</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-
-
-                </div>
-            </div>
-
-            <!-- Card 3: Deep Cleaning -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/Deep Clean" alt="Clean" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> Deep Clean</div>
-                </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ Upholstery Steam</li>
-                    <li>✓ Odor Elimination</li>
-                    <li>✓ Cabin Sanitizing</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold text-blue-600">₹3,999</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-
-                </div>
-            </div>
-
-            <!-- Card 4: Ceramic Coating -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/Coating" alt="Coating" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> Ceramic</div>
-                </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ UV Protection</li>
-                    <li>✓ Hydrophobic Finish</li>
-                    <li>✓ 1-Year Warranty</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold text-blue-600">₹9,999</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-
-                </div>
-            </div>
-
-            <!-- Card 5: Engine Detailing -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/Engine" alt="Engine" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> Engine</div>
-                </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ Degreasing</li>
-                    <li>✓ Corrosion Protect</li>
-                    <li>✓ Belt Conditioning</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold  text-blue-600">₹2,499</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-
-                </div>
-            </div>
-
-            <!-- Card 6: Winter Prep -->
-            <div class="group relative bg-white dark:bg-slate-900 rounded-[2rem] p-6 shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="relative h-48 w-full overflow-hidden rounded-2xl mb-6">
-                    <img src="assets/Winterize" alt="Winter" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute bottom-4 left-4 text-white font-bold text-xl flex items-center gap-2"> Winterize</div>
-                </div>
-                <ul class="space-y-3 mb-8 text-sm">
-                    <li>✓ Fluid Draining</li>
-                    <li>✓ Battery Storage</li>
-                    <li>✓ Full Body Cover</li>
-                </ul>
-                <div class="flex items-center justify-between border-t pt-4">
-                    <p class="text-xl font-bold text-blue-600">₹5,599</p>
-                    <a href="booknow.html" class="bg-blue-600 text-white px-4 py-2 rounded-full font-bold hover:scale-105">Book</a>
-
-                </div>
-            </div>
-
+            </template>
         </div>
     </div>
 </section>
