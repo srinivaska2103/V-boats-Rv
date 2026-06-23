@@ -404,16 +404,32 @@
             <p class="text-slate-600 dark:text-slate-400">Watch our expert detailing work in action.</p>
         </div>
 
-        <div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 bg-slate-200">
-            
-            <img src="assets/before" 
-                 alt="Before" 
-                 class="absolute inset-0 w-full h-full object-cover">
+        <div class="flex justify-center w-full">
+            <div class="group bg-white dark:bg-slate-900 rounded-[2.5rem] p-4 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-all hover:shadow-2xl w-full max-w-sm">
+                
+                <div class="relative w-full aspect-square rounded-[2rem] overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    
+                    <img src="assets/before" 
+                         alt="Transformation" 
+                         class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
 
-           
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-black/40 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">Before</span>
+                    </div>
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="bg-blue-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">After</span>
+                    </div>
+                </div>
 
-            <div class="absolute top-6 left-6 bg-black/50 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase">Before</div>
-            <div class="absolute top-6 right-6 bg-blue-600/90 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase">After</div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Premium Detailing</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Professional restoration of your vessel.</p>
+                    
+                    <button class="w-full py-2.5 bg-slate-900 dark:bg-blue-600 text-white rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">
+                        View Case Study
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
