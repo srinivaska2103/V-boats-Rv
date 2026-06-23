@@ -45,29 +45,34 @@
                 <p class="text-slate-500 text-center font-medium text-sm md:text-base">Enter your credentials to continue</p>
             </div>
 
-            <form class="space-y-4">
-                <input type="email" placeholder="name@company.com" class="w-full p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all">
-                
-               <div class="relative" x-data="{ showPass: false }">
-                    <input :type="showPass ? 'text' : 'password'" 
-                           placeholder="Enter password" 
-                           class="w-full p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all pr-12">
-                    
-                    <button type="button" @click="showPass = !showPass" class="absolute right-4 top-3.5 md:top-4 text-slate-400 hover:text-blue-600 transition-colors">
-                        <svg x-show="!showPass" class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                        <svg x-show="showPass" class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.7 9.7 0 012.73-3.83m6.812-1.334A3 3 0 0115 12c0 .487-.11.948-.3 1.365m-2.122-2.122l2.122 2.122M15 15l-3 3M3 3l18 18" /></svg>
-                    </button>
-                </div>
+  <form class="space-y-4" dir="auto">
+    <input type="email" placeholder="name@company.com" 
+           class="w-full p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all text-start">
+    
+    <div class="relative" x-data="{ showPass: false }">
+        <input :type="showPass ? 'text' : 'password'" 
+               placeholder="Enter password" 
+               class="w-full p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-blue-600 transition-all pe-12 ps-4 text-start">
+        
+        <button type="button" @click="showPass = !showPass" 
+                class="absolute end-4 top-3.5 md:top-4 text-slate-400 hover:text-blue-600 transition-colors">
+            <svg x-show="!showPass" class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+            <svg x-show="showPass" class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.7 9.7 0 012.73-3.83m6.812-1.334A3 3 0 0115 12c0 .487-.11.948-.3 1.365m-2.122-2.122l2.122 2.122M15 15l-3 3M3 3l18 18" /></svg>
+        </button>
+    </div>
 
-                <div class="flex justify-between items-center text-xs md:text-sm">
-                    <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-600 dark:text-slate-400">
-                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600"> Remember me
-                    </label>
-                    <a href="#" class="text-blue-600 font-semibold hover:underline">Forgot Password?</a>
-                </div>
+    <div class="flex flex-row justify-between items-center text-xs md:text-sm">
+        <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-600 dark:text-slate-400">
+            <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600"> 
+            Remember me
+        </label>
+        <a href="#" class="text-blue-600 font-semibold hover:underline">Forgot Password?</a>
+    </div>
 
-                <button class="w-full p-3 md:p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20">Sign In</button>
-            </form>
+    <button class="w-full p-3 md:p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20">
+        Sign In
+    </button>
+</form>
 
             <div class="my-6 md:my-8 flex items-center gap-4">
                 <div class="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
